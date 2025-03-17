@@ -28,6 +28,10 @@ def call(body){
         }
 
         stage('Quality Gate'){
+            environment {
+                SONAR_HOST_URL = "http://sonarqube.localhost.com/"
+                SONAR_LOGIN    = credentials('sonar-scanner-cli')
+            }
             steps {
                 sonarQualityGate {}
             }
