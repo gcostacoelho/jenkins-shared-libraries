@@ -12,7 +12,7 @@ def call(body){
             sonar-scanner -X \
                 -Dsonar.SONAR_TOKEN=${SONAR_TOKEN} \
                 -Dsonar.projectKey=${JOB_NAME%/*}-${GIT_BRANCH} \
-                -Dqualitygate.wait=true
+                -Dsonar.qualitygate.wait=true
         '''
     }
 }
