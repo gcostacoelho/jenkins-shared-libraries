@@ -9,8 +9,8 @@ def call(body){
         sh '''
             echo "${JOB_NAME%/*}"
 
-            sonar-scanner -X \ 
-                -Dsonar.SONAR_TOKEN=${SONAR_TOKEN} \ 
+            sonar-scanner -X \
+                -Dsonar.SONAR_TOKEN=${SONAR_TOKEN} \
                 -Dsonar.projectKey=${JOB_NAME%/*}-${GIT_BRANCH}
         '''
     }
