@@ -1,4 +1,4 @@
-def call(body){
+def call(body) {
     def settings = [:]
 
     body.resolveStrategy = Closure.DELEGATE_FIRST
@@ -12,7 +12,6 @@ def call(body){
             REGISTRY="harbor.localhost.com/gustavome"
             REPOSITORY=${JOB_NAME%/*}
             TAG="0.0.1"
-
 
             DESTINATION="${REGISTRY}/${REPOSITORY}:${TAG}"
 
