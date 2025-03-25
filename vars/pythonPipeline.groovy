@@ -44,6 +44,18 @@ def call(body){
                 }
             }
         }
+
+        stage('Build and push'){
+            steps {
+                kanikoBuildPush {}
+            }
+            when {
+                anyOf {
+                    branch pattern:  "developer*"
+                    branch pattern:  "hotfix*"
+                }
+            }
+        }
     }
 }
 }
