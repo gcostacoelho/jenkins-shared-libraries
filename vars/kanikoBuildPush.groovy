@@ -11,7 +11,13 @@ def call(body) {
 
             REGISTRY="harbor.localhost.com/gustavome"
             REPOSITORY=${JOB_NAME%/*}
-            TAG="0.0.1"
+            TAG=""
+
+            if [ $(echo $GIT_BRANCH | grep -E ^developer$) ]; then
+                TAG="dev-${GIT_COMMIT:0:10}"
+            elif [ $(echo $GIT_BRANCH | grep -E "^(release/.*)|(hotfix/.*)") ]; then
+                TAG="${GIT_BRANCH#*/}-${GIT_COMMIT:0:10}"
+            fi
 
             DESTINATION="${REGISTRY}/${REPOSITORY}:${TAG}"
 

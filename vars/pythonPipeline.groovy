@@ -19,8 +19,9 @@ def call(body) {
                 }
                 when {
                     anyOf {
-                        branch pattern:  'feature/'
                         branch pattern:  'developer'
+                        branch pattern:  'release/'
+                        branch pattern:  'feature/'
                         branch pattern:  'hotfix/'
                         branch pattern:  'fix/'
                     }
@@ -37,8 +38,9 @@ def call(body) {
                 }
                 when {
                     anyOf {
-                        branch pattern:  'feature/'
                         branch pattern:  'developer'
+                        branch pattern:  'release/'
+                        branch pattern:  'feature/'
                         branch pattern:  'hotfix/'
                         branch pattern:  'fix/'
                     }
@@ -52,6 +54,7 @@ def call(body) {
                 when {
                     anyOf {
                         branch pattern:  'developer'
+                        branch pattern:  'release/'
                         branch pattern:  'hotfix/'
                         branch pattern:  'main'
                     }
