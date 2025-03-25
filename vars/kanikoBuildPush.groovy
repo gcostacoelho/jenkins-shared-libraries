@@ -14,7 +14,7 @@ def call(body){
             TAG="0.0.1"
 
 
-            DESTINATION="${REGISTRY}/${REPOSITORY}/${TAG}"
+            DESTINATION="${REGISTRY}/${REPOSITORY}:${TAG}"
 
             /kaniko/executor \
                 --insecure \
