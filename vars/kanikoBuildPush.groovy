@@ -16,7 +16,7 @@ def call(body){
 
             DESTINATION="${REGISTRY}/${REPOSITORY}/${TAG}"
 
-            /kaniko/executor \ 
+            /kaniko/executor \
                 --insecure \
                 --destination ${DESTINATION} \
                 --context $(pwd)
