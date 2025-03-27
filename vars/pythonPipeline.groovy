@@ -53,10 +53,10 @@ def call(body){
                 }
                 when {
                     anyOf {
-                        branch pattern:  'main'
                         branch pattern:  'release*'
                         branch pattern:  'hotfix*'
                         branch pattern:  'developer'
+                        branch pattern:  'v*'
                     }
                 }
             }
