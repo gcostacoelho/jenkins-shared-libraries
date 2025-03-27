@@ -17,7 +17,7 @@ def call(body) {
                 TAG="dev-${GIT_COMMIT:0:10}"
             elif [ $(echo $GIT_BRANCH | grep -E "^(release-.*)|(hotfix-.*)") ]; then
                 TAG="${GIT_BRANCH#*-}-${GIT_COMMIT:0:10}"
-            elif [ $(echo $GIT_BRANCH | grep -E "v[0-9]\\.[0-9]{1,2}\\.[0-9]{1,3}$") ]
+            elif [ $(echo $GIT_BRANCH | grep -E "v[0-9]\\.[0-9]{1,2}\\.[0-9]{1,3}$") ]; then
                 TAG="$GIT_BRANCH"
             fi
 

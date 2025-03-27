@@ -24,6 +24,7 @@ def call(body){
                     branch pattern:  "release*"
                     branch pattern:  "hotfix*"
                     branch pattern:  "fix*"
+                    branch pattern:  'v*'
                 }
             }
         }
@@ -43,6 +44,7 @@ def call(body){
 	                branch pattern:  "feature*"
                     branch pattern:  "hotfix*"
                     branch pattern:  "fix*"
+                    branch pattern:  'v*'
                 }
             }
         }
