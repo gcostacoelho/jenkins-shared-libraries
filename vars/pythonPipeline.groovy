@@ -58,7 +58,25 @@ def call(body){
                         branch pattern:  'release*'
                         branch pattern:  'hotfix*'
                         branch pattern:  'developer'
-                        branch pattern:  'v*'
+                        branch pattern:  'v*' // Tag
+                    }
+                }
+            }
+
+            stage('Scan Security') {
+                environment {
+                    HARBOR_API_TOKEN = credentials('harbor-api-token')
+                }
+
+                steps {
+                    scanSecurity { }
+                }
+                when {
+                    anyOf {
+                        branch pattern:  'release*'
+                        branch pattern:  'hotfix*'
+                        branch pattern:  'developer'
+                        branch pattern:  'v*' // Tag
                     }
                 }
             }
