@@ -46,7 +46,8 @@ def call(body) {
                     -H 'accept: application/json' \
                     -H "authorization: Basic ${HARBOR_API_TOKEN}")
                 
-                SEVERITY=$HARBOR_RESPONSE | jq -r '.scan_overview | to_entries | .[].value.severity'
+                SEVERITY=$(echo "$HARBOR_RESPONSE" | jq -r '.scan_overview | to_entries | .[].value.severity')
+
 
                 echo "Sleep for ${SLEEP} seconds | Count: ${COUNT}"
                 sleep $SLEEP
