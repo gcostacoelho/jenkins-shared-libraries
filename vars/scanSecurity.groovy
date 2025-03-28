@@ -42,7 +42,7 @@ def call(body) {
 
             # Script
             while [ "$SEVERITY" == "null" ]; do
-                HARBOR_RESPONSE=$(curl -X "${HARBOR_URL}" \
+                HARBOR_RESPONSE=$(curl -X GET "${HARBOR_URL}" \
                     -H 'accept: application/json' \
                     -H "authorization: Basic ${HARBOR_API_TOKEN}")
                 
