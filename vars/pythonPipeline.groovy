@@ -61,7 +61,7 @@ def call(body){
                 }
             }
 
-            stage('Scan Security') {
+            stage('Harbor Security Scan') {
                 environment {
                     HARBOR_API_TOKEN = credentials('harbor-api-token')
                 }
@@ -73,6 +73,18 @@ def call(body){
                     anyOf {
                         branch pattern:  'hotfix*'
                         branch pattern:  'developer'
+                    }
+                }
+            }
+
+            stage('Crane Artifact promotion') {
+                steps {
+                    artifactPromotion { }
+                }
+                when {
+                    anyOf {
+                        branch pattern:  "release*"
+                        branch pattern:  'v*'
                     }
                 }
             }
