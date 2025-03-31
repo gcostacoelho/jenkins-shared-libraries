@@ -13,12 +13,14 @@ def call(body) {
             REPOSITORY=${JOB_NAME%/*}
             TAG=""
 
+            ENV=""
+
             if [ $(echo $GIT_BRANCH | grep -E ^developer$) ]; then
                 TAG="dev-${GIT_COMMIT:0:10}"
-            elif [ $(echo $GIT_BRANCH | grep -E "^(release-.*)|(hotfix-.*)") ]; then
+                ENV="dev"
+            elif [ $(echo $GIT_BRANCH | grep -E "^hotfix-.*") ]; then
                 TAG="${GIT_BRANCH#*-}-${GIT_COMMIT:0:10}"
-            elif [ $(echo $GIT_BRANCH | grep -E "v[0-9]\\.[0-9]{1,2}\\.[0-9]{1,3}$") ]; then
-                TAG="$GIT_BRANCH"
+                ENV="stg"
             fi
 
             DESTINATION="${REGISTRY}/${REPOSITORY}:${TAG}"
@@ -27,6 +29,8 @@ def call(body) {
                 --insecure \
                 --destination ${DESTINATION} \
                 --context $(pwd)
+
+            echo "${TAG}" > /artifacts/${ENV}.artifact
         '''
     }
 }
