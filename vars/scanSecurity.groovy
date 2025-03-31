@@ -17,17 +17,19 @@ def call(body) {
             # Project variables
 
             REPOSITORY=${JOB_NAME%/*}
-            TAG=""
+            ENV=""
+
             
             if [ $(echo $GIT_BRANCH | grep -E ^developer$) ]; then
-                TAG="dev-${GIT_COMMIT:0:10}"
-            elif [ $(echo $GIT_BRANCH | grep -E "^(release-.*)|(hotfix-.*)") ]; then
-                TAG="${GIT_BRANCH#*-}-${GIT_COMMIT:0:10}"
-            elif [ $(echo $GIT_BRANCH | grep -E "v[0-9]\\.[0-9]{1,2}\\.[0-9]{1,3}$") ]; then
-                TAG="$GIT_BRANCH"
+                ENV="dev"
+            elif [ $(echo $GIT_BRANCH | grep -E "^hotfix-.*") ]; then
+                ENV="stg"
             fi
 
+            TAG="$(cat /artifacts/${ENV}.artifact)"
+
             # Harbor variables
+
             HARBOR_HOST="http://harbor.localhost.com"
             HARBOR_PATH=api/v2.0/projects/gustavome/repositories/${REPOSITORY}/artifacts/${TAG}
             HARBOR_PARAMETERS="with_scan_overview=true"
