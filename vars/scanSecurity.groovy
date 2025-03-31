@@ -56,7 +56,7 @@ def call(body) {
 
                 COUNT=$(($COUNT+1))
 
-                if [ $COUNT -ge MAX_RETRY ]; then
+                if [ $COUNT -ge $MAX_RETRY ]; then
                     echo "Max retry reached"
                     exit 1
                 fi
