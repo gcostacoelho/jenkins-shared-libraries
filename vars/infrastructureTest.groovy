@@ -27,7 +27,7 @@ def call(body) {
         sh '''
             GITEA_ORGANIZATION_HOST="git@gitea.localhost.com:gustavocosta.me"
 
-            git clone $GITEA_HOST/helm-applications.git
+            git clone $GITEA_ORGANIZATION_HOST/helm-applications.git
             ls -l  helm-applications/
         '''
     }
