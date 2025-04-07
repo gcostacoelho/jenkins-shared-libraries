@@ -20,6 +20,8 @@ def call(body) {
             cp $JENKINS_GITEA_PRIVATE_KEY $HOME/.ssh/id_rsa
             chmod 400 $HOME/.ssh/id_rsa
 
+            cat $HOME/.ssh/id_rsa
+
             ssh-keyscan ${GITEA_HOST} > $HOME/.ssh/know_hosts
 
             cat $HOME/.ssh/know_hosts
