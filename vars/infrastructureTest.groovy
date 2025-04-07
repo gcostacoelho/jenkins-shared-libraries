@@ -21,6 +21,8 @@ def call(body) {
             chmod 400 $HOME/.ssh/id_rsa
 
             ssh-keyscan ${GITEA_HOST} > $HOME/.ssh/know_hosts
+
+            cat $HOME/.ssh/know_hosts
         '''
         
         // Clone helm-applications repository
