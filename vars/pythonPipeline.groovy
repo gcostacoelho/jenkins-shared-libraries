@@ -88,6 +88,22 @@ def call(body){
                     }
                 }
             }
+
+            stage('Integration/infrastructure test') {
+                environment {
+                    JENKINS_GITEA_PRIVATE_KEY = credentials('jenkins-gitea')
+                }
+
+                steps {
+                    infrastructureTest { }
+                }
+                when {
+                    anyOf {
+                        branch pattern:  "release*"
+                        branch pattern:  'v*'
+                    }
+                }
+            }
         }
     }
 }
