@@ -99,8 +99,8 @@ def call(body){
                 }
                 when {
                     anyOf {
-                        branch pattern:  "release*"
-                        branch pattern:  'v*'
+                        branch pattern:  'hotfix*'
+                        branch pattern:  'developer'
                     }
                 }
             }
