@@ -44,12 +44,11 @@ def call(body) {
             cd helm-applications/$REPOSITORY
 
             helm dependency build
+
             helm upgrade -i -f values-ci.yaml  \
                 -n citest --create-namespace \
                 --set image.tag="$(cat /artifacts/${ENV}.artifact)" \
                 --set fullnameOverride=${REPOSITORY} \
-                --insecure-skip-tls-verify \
-                --kube-insecure-skip-tls-verify=true \
                 --wait \
                 flask-ci .
         '''
