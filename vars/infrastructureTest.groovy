@@ -47,7 +47,8 @@ def call(body) {
             helm upgrade -i -f values-ci.yaml  \
                 -n citest --create-namespace \
                 --set image.tag="$(cat /artifacts/${ENV}.artifact)" \
-                --set fullnameOverride="flask" \
+                --set fullnameOverride=${REPOSITORY} \
+                --insecure-skip-tls-verify
                 --wait \
                 flask-ci .
         '''
