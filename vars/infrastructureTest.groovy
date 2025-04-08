@@ -48,7 +48,7 @@ def call(body) {
                 -n citest --create-namespace \
                 --set image.tag="$(cat /artifacts/${ENV}.artifact)" \
                 --set fullnameOverride=${REPOSITORY} \
-                --insecure-skip-tls-verify
+                --insecure-skip-tls-verify \
                 --wait \
                 flask-ci .
         '''
