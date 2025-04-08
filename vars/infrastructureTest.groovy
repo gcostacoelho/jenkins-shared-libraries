@@ -9,9 +9,9 @@ def call(body) {
         // Install stage dependencies
         sh "apk add openssh curl"
 
+        // Prepare the ssh environment
         sh '''
             GITEA_HOST="gitea.localhost.com"
-            GITEA_ORGANIZATION_HOST="git@gitea.localhost.com:gustavocosta.me"
 
             mkdir $HOME/.ssh
 
@@ -19,10 +19,37 @@ def call(body) {
             chmod 400 $HOME/.ssh/id_rsa
 
             ssh-keyscan ${GITEA_HOST} > $HOME/.ssh/known_hosts
-        
-            git clone $GITEA_ORGANIZATION_HOST/helm-applications.git
-        
+        '''
+
+ 	    // Clone helm-applications repository
+        sh '''
+            GITEA_ORGANIZATION_HOST="git@gitea.localhost.com:gustavocosta.me"
+
+            git clone $GITEA_HOST/helm-applications.git
             ls -l  helm-applications/
+        '''
+
+        // Installing the chart
+        sh '''
+            ENV=""
+
+            if [ $(echo $GIT_BRANCH | grep -E ^developer$) ]; then
+                ENV="dev"
+            elif [ $(echo $GIT_BRANCH | grep -E "^hotfix-.*") ]; then
+                ENV="stg"
+            fi
+
+            REPOSITORY=${JOB_NAME%/*}
+
+            cd helm-applications/$REPOSITORY
+
+            helm dependency build
+            helm upgrade -i -f values-ci.yaml  \
+                -n citest --create-namespace \
+                --set image.tag="$(cat /artifacts/${ENV}.artifact)" \
+                --set fullnameOverride="flask" \
+                --wait \
+                flask-ci .
         '''
     }
 }
