@@ -49,6 +49,7 @@ def call(body) {
                 --set image.tag="$(cat /artifacts/${ENV}.artifact)" \
                 --set fullnameOverride=${REPOSITORY} \
                 --insecure-skip-tls-verify \
+                --kube-insecure-skip-tls-verify=true \
                 --wait \
                 flask-ci .
         '''
