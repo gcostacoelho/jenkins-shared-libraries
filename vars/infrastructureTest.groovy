@@ -31,6 +31,8 @@ def call(body) {
 
         // Installing the chart
         sh '''
+            set -x
+
             ENV=""
 
             if [ $(echo $GIT_BRANCH | grep -E ^developer$) ]; then
