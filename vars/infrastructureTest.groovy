@@ -5,7 +5,7 @@ def call(body) {
     body.delegate = settings
     body()
 
-    container("infra-test") {        
+    container("helm") {        
         // Install stage dependencies
         sh "apk add openssh"
 
@@ -50,7 +50,7 @@ def call(body) {
                 --set image.tag="$(cat /artifacts/${ENV}.artifact)" \
                 --set fullnameOverride=${REPOSITORY} \
                 --wait \
-                flask-ci .
+                ${REPOSITORY}-ci .
         '''
 
         // Send a request using curl

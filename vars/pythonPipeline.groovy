@@ -104,6 +104,17 @@ def call(body){
                     }
                 }
             }
+            post {
+                always {
+                    container('helm') {
+                        sh '''
+                            REPOSITORY=${JOB_NAME%/*}
+
+                            helm delete -n citest ${REPOSITORY}-ci
+                        '''
+                    }
+                }
+            }
         }
     }
 }
