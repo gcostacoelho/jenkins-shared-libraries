@@ -58,7 +58,8 @@ def call(body) {
             STATUS_CODE="$(curl --silent \
                 --output /dev/null \
                 --write-out %'{http_code}\n' \
-                http://flask.citest.svs.cluster.local:5000)"
+                http://sample-app.citest.svs.cluster.local:5000/users
+            )"
 
             if [ "$STATUS_CODE" == "200" ]; then
                 echo "All good, response HTTP 200"
