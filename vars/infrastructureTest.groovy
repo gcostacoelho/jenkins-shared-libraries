@@ -58,7 +58,7 @@ def call(body) {
             STATUS_CODE="$(curl --silent \
                 --output /dev/null \
                 --write-out %'{http_code}\n' \
-                http://sample-app.citest.svs.cluster.local:5000/users
+                http://sample-app.citest.svc.cluster.local:5000/users
             )"
 
             if [ "$STATUS_CODE" == "200" ]; then
