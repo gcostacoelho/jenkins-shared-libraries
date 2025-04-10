@@ -7,7 +7,7 @@ def call(body) {
 
     container("infra-test") {        
         // Install stage dependencies
-        sh "apk add openssh curl"
+        sh "apk add openssh"
 
         // Prepare the ssh environment
         sh '''
@@ -31,8 +31,6 @@ def call(body) {
 
         // Installing the chart
         sh '''
-            set -x
-
             ENV=""
 
             if [ $(echo $GIT_BRANCH | grep -E ^developer$) ]; then
@@ -53,6 +51,21 @@ def call(body) {
                 --set fullnameOverride=${REPOSITORY} \
                 --wait \
                 flask-ci .
+        '''
+
+        // Send a request using curl
+        sh '''
+            STATUS_CODE="$(curl --silent \
+                --output /dev/null \
+                --write-out %'{http_code}\n' \
+                http://flask.citest.svs.cluster.local:5000)"
+
+            if [ "$STATUS_CODE" == "200" ]; then
+                echo "All good, response HTTP 200"
+            else
+                echo "Error: $STATUS_CODE"
+                exit 1
+            fi;
         '''
     }
 }
