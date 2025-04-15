@@ -38,13 +38,13 @@ def call(body) {
         '''
 
         sh '''
-            # Deploy steps
+            cd helm-applications/
 
             IMAGE_TAG="$(cat /artifacts/dev.artifact)"
 
-            sed -i -E "s/dev-[0-9a-z]{10}/${IMAGE_TAG}/g" helm-applications/${JOB_NAME%/*}/values-dev.yaml
+            sed -i -E "s/dev-[0-9a-z]{10}/${IMAGE_TAG}/g" values-dev.yaml
 
-            git add helm-applications/${JOB_NAME%/*}/values-dev.yaml
+            git add values-dev.yaml
             git commit -m "[${JOB_NAME%/*}|DEV] - Deploy image tag" --allow-empty
             git push
         '''
