@@ -38,7 +38,7 @@ def call(body) {
         '''
 
         sh '''
-            cd helm-applications/
+            cd helm-applications/${JOB_NAME%/*}
 
             IMAGE_TAG="$(cat /artifacts/dev.artifact)"
 
