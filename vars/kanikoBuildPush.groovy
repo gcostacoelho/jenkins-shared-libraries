@@ -25,6 +25,12 @@ def call(body) {
 
             DESTINATION="${REGISTRY}/${REPOSITORY}:${TAG}"
 
+            if [ "$TAG" == $(cat /artifacts/${ENV}.artifact) ]; then
+                echo "Tag ${TAG} already exists in registry"
+                echo "Skipping this stage"
+                exit 0
+            fi
+
             /kaniko/executor \
                 --insecure \
                 --destination ${DESTINATION} \
