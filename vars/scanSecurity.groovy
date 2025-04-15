@@ -50,6 +50,9 @@ def call(body) {
                 
                 SEVERITY=$(echo "$HARBOR_RESPONSE" | jq -r '.scan_overview | to_entries | .[].value.severity')
 
+                if [ "$SEVERITY" != "null" ]; then
+                    break 
+                fi
 
                 echo "Sleep for ${SLEEP} seconds | Count: ${COUNT}"
                 sleep $SLEEP
