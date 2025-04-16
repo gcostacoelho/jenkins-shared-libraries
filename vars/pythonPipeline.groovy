@@ -135,6 +135,38 @@ def call(body){
                     }
                 }
             }
+
+            stage('Creating tag') {
+                environment {
+                    ARGOCD_GITEA_PRIVATE_KEY = credentials('argocd-gitea')
+                }
+
+                steps {
+                    input message: "Would you like to promote to production?"
+                    createTag { }
+                }
+                when {
+                    anyOf {
+                        branch pattern:  "release*"
+                        branch pattern:  'hotfix*'
+                    }
+                }
+            }
+            stage('Deploy to Production') {
+                environment {
+                    ARGOCD_GITEA_PRIVATE_KEY = credentials('argocd-gitea')
+                }
+
+                steps {
+                    input message: "Would you like to promote to production?"
+                    deployPrd { }
+                }
+                when {
+                    anyOf {
+                        branch pattern:  "v*"
+                    }
+                }
+            }
         }
         post {
             always {
