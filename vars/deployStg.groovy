@@ -42,7 +42,7 @@ def call(body) {
 
             IMAGE_TAG="$(cat /artifacts/stg.artifact)"
 
-            sed -i -E "s/v[0-9]{1, 2}\\.[0-9]{1, 3}\\.[0-9]{1, 3}-[0-9a-z]{10}/${IMAGE_TAG}/g" values-stg.yaml
+            sed -i -E "s/v[0-9]{1,2}\\.[0-9]{1,3}\\.[0-9]{1,3}-[0-9a-z]{10}/${IMAGE_TAG}/g" values-stg.yaml
 
             git add values-stg.yaml
             git commit -m "[${JOB_NAME%/*}|stg] - Deploy image tag ${IMAGE_TAG}" --allow-empty
