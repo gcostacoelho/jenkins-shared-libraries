@@ -119,6 +119,22 @@ def call(body){
                     }
                 }
             }
+            
+            stage('Deploy to Staging') {
+                environment {
+                    ARGOCD_GITEA_PRIVATE_KEY = credentials('argocd-gitea')
+                }
+
+                steps {
+                    deployStg { }
+                }
+                when {
+                    anyOf {
+                        branch pattern:  "release*"
+                        branch pattern:  'hotfix*'
+                    }
+                }
+            }
         }
         post {
             always {
