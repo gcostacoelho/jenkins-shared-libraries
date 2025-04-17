@@ -1,4 +1,4 @@
-def call(body){
+def call(body) {
     def settings = [:]
 
     body.resolveStrategy = Closure.DELEGATE_FIRST
@@ -7,10 +7,12 @@ def call(body){
 
     container('sonar-scanner-cli') {
         sh '''
-            echo "${JOB_NAME}"
+            echo "${JOB_NAME%/*}"
 
             sonar-scanner -X \
-                -Dsonar.projectKey=${JOB_NAME}
+                -Dsonar.SONAR_TOKEN=${SONAR_TOKEN} \
+                -Dsonar.projectKey=${JOB_NAME%/*}-${GIT_BRANCH} \
+                -Dsonar.qualitygate.wait=true
         '''
     }
 }
