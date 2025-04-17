@@ -10,7 +10,7 @@ Nesse em específico está contido todos os stages da pipeline, sendo o arquivo 
 
 ## Repositórios
 
-- [Gitflow Jenkins]("(https://github.com/gcostacoelho/gitflow-jenkins)") - Repositório responsável por subir o cluster Kubernetes e os charts utilizados no projeto usando o Kind.
+- [Gitflow Jenkins](https://github.com/gcostacoelho/gitflow-jenkins) - Repositório responsável por subir o cluster Kubernetes e os charts utilizados no projeto usando o Kind.
 
 - [Sample app](https://github.com/gcostacoelho/sample-app-flask) - Repositório da aplicação que irá servir como teste para ver a pipeline rodando.
 
